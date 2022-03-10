@@ -1,6 +1,8 @@
 package org.symbench.creointerferenceserver.creo;
 
 import org.junit.Test;
+import org.symbench.creointerferenceserver.http.InterferenceDetails;
+
 import static org.junit.Assert.*;
 
 public class InterferenceDetailsTest {

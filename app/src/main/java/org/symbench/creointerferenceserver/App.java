@@ -3,9 +3,24 @@
  */
 package org.symbench.creointerferenceserver;
 
-public class App {
+import com.sun.net.httpserver.HttpServer;
+import org.symbench.creointerferenceserver.http.HTTPRequestHandler;
 
-    public static void main(String[] args) {
-        // ToDo Add Implementation
+import java.net.InetSocketAddress;
+
+
+public class App {
+    private static final String ENDPOINT = "/analyze-interference";
+
+    private static final String PORT = "interferenceserver.port";
+
+    public static void main(String[] args) throws Exception {
+        int port = 8000;
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+
+        server.createContext(ENDPOINT, new HTTPRequestHandler());
+        System.out.println("Starting server, listening on port " + port + ".");
+        server.start();
     }
 }

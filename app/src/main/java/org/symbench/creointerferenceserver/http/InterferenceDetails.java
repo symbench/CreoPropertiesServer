@@ -1,4 +1,4 @@
-package org.symbench.creointerferenceserver.creo;
+package org.symbench.creointerferenceserver.http;
 
 public class InterferenceDetails {
     private String part1Name;

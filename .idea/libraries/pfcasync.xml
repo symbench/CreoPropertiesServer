@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pfcasync">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../Program Files/PTC/Creo 8.0.0.0/Common Files/text/java/pfcasync.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
