@@ -21,8 +21,4 @@ jobs:
           distribution: 'adopt'
 
       - name: Test With Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: test
-          gradle-version: wrapper
-          build-root-directory: "."
+        run: .\gradlew.bat test
