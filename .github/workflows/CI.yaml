@@ -25,3 +25,4 @@ jobs:
         with:
           arguments: test
           gradle-version: wrapper
+          wrapper-directory: "gradle"
