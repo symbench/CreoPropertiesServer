@@ -4,9 +4,16 @@ import com.ptc.pfc.pfcAsyncConnection.*;
 import com.ptc.cipjava.*;
 
 public class CreoSession {
-    public static Session acquire() throws jxthrowable {
+    private static AsyncConnection ac;
+    public static void connect() throws jxthrowable {
         System.loadLibrary ("pfcasyncmt");
-        AsyncConnection ac = pfcAsyncConnection.AsyncConnection_Connect (null, null, null, 10);
+        ac = pfcAsyncConnection.AsyncConnection_Connect (null, null, null, 10);
+    }
+
+    public static Session acquire() throws jxthrowable{
+        if(ac == null) {
+            connect();
+        }
         return ac.GetSession();
-    };
+    }
 }

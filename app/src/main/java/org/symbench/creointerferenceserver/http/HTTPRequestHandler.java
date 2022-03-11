@@ -40,7 +40,6 @@ public class HTTPRequestHandler implements HttpHandler {
             while((len = is.read(buffer)) > 0) {
                 bos.write(buffer, 0, len);
             }
-            System.out.println(bos.toString()+ "ajdalksjkl");
 //            InterferenceRequest request = gson.fromJson(bos.toString(), InterferenceRequest.class);
             try {
                 String stringResponse = gson.toJson(this.interferenceRequestHandler.handle(null));
