@@ -13,13 +13,15 @@ import com.ptc.pfc.pfcSelect.*;
 import com.ptc.pfc.pfcModel.*;
 import com.ptc.pfc.pfcSession.*;
 
+import org.symbench.creointerferenceserver.utils.LoggerFactory;
+
 public class InterferenceAnalyzer {
 
     public static final String PART_1_NAME = "part_1_name";
     public static final String PART_2_NAME = "part_2_name";
     public static final String INTERFERENCE_VOLUME = "interference_volume";
 
-    private static final Logger logger = Logger.getLogger(InterferenceAnalyzer.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(InterferenceAnalyzer.class.getName());
 
     public ArrayList<Hashtable<String, Object>> getGlobalInterferences(String assemblyPath) throws jxthrowable {
         Assembly assembly = this.loadAssemblyIfNeeded(assemblyPath);
@@ -43,18 +45,13 @@ public class InterferenceAnalyzer {
             // ToDo: Add Log Message
             int size = globalInterferences.getarraysize();
             for(int j = 0; j < size; j++) {
-                System.out.println(j);
                 GlobalInterference interference = globalInterferences.get(j);
                 SelectionPair interferingPairs = interference.GetSelParts();
                 Hashtable<String, Object> detail = new Hashtable<>();
                 detail.put(PART_1_NAME, interferingPairs.GetSel1().GetSelModel().GetFullName());
                 detail.put(PART_2_NAME, interferingPairs.GetSel2().GetSelModel().GetFullName());
                 detail.put(INTERFERENCE_VOLUME, interference.GetVolume().ComputeVolume());
-
-                System.out.print(PART_1_NAME + interferingPairs.GetSel1().GetSelModel().GetFullName());
-                System.out.print('\t' + PART_2_NAME + interferingPairs.GetSel2().GetSelModel().GetFullName());
-                System.out.print('\t' + INTERFERENCE_VOLUME + interference.GetVolume().ComputeVolume());
-                System.out.println();
+                logger.log(Level.FINEST,"Interference {j}: " + detail.toString());
                 interferences.add(detail);
             }
             return interferences;

@@ -4,8 +4,8 @@
 package org.symbench.creointerferenceserver;
 
 import com.sun.net.httpserver.HttpServer;
-import org.symbench.creointerferenceserver.creo.InterferenceAnalyzer;
 import org.symbench.creointerferenceserver.http.JSONRequestHandler;
+import org.symbench.creointerferenceserver.utils.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;
@@ -16,10 +16,10 @@ public class App {
 
     private static final String PORT = "interferenceserver.port";
 
-    private static final Logger logger = Logger.getLogger(App.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(App.class.getName());
 
     public static void main(String[] args) throws Exception {
-        int port = 8000;
+        int port = 8000;  // This is hardcoded
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 

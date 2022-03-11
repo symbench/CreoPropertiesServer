@@ -9,12 +9,13 @@ import java.util.logging.Logger;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.symbench.creointerferenceserver.utils.LoggerFactory;
 
 
 public class JSONRequestHandler implements HttpHandler {
     private JSONHandler handler = new JSONHandler();
 
-    private static final Logger logger = Logger.getLogger(JSONRequestHandler.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(JSONRequestHandler.class.getName());
 
     @Override
     public void handle(HttpExchange t) throws IOException {

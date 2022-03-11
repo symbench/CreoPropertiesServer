@@ -2,6 +2,7 @@ package org.symbench.creointerferenceserver.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.symbench.creointerferenceserver.creo.InterferenceAnalyzer;
+import org.symbench.creointerferenceserver.utils.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -14,7 +15,7 @@ public class JSONHandler {
 
     private Map<String, JSONCommandHandler> commands = new HashMap();
 
-    private static final Logger logger = Logger.getLogger(JSONHandler.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(JSONHandler.class.getName());
 
     public JSONHandler() {
         commands.put(InterferenceHandler.COMMAND, new InterferenceHandler(InterferenceAnalyzer.getInstance()));
@@ -43,7 +44,6 @@ public class JSONHandler {
                 try {
                     return mapper.writeValueAsString(output);
                 } catch (Exception ex) {
-                    logger.info(ex.getMessage());
                     return null;
                 }
         }
@@ -68,7 +68,7 @@ public class JSONHandler {
         }
     }
 
-    private BaseResponse handleRequest(BaseRequest request) throws Exception{
+    private BaseResponse handleRequest(BaseRequest request) throws Exception {
         BaseResponse resp = new BaseResponse();
 
         if (request==null) {

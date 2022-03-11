@@ -24,9 +24,8 @@ public class InterferenceHandler extends JSONCommandHandler {
     }
 
 
-    public Hashtable<String, Object> handleFunction(String function, Hashtable<String, Object> input) throws Exception{
+    public Hashtable<String, Object> handleFunction(String function, Hashtable<String, Object> input) throws Exception {
         Hashtable<String, Object> output = new Hashtable<>();
-        System.out.println("Here");
         logger.info("Function " + function + "called with data "  + input);
         if(function.equals(GLOBAL_INTERFERENCE)) {
             List<Hashtable<String, Object>> interferenceData = computeGlobalInterference(input);
