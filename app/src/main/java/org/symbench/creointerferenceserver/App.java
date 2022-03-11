@@ -4,10 +4,12 @@
 package org.symbench.creointerferenceserver;
 
 import com.sun.net.httpserver.HttpServer;
+import org.symbench.creointerferenceserver.creo.CREOEnvironment;
 import org.symbench.creointerferenceserver.http.JSONRequestHandler;
 import org.symbench.creointerferenceserver.utils.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 
@@ -19,7 +21,8 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class.getName());
 
     public static void main(String[] args) throws Exception {
-        int port = 8000;  // This is hardcoded
+        int port = 8000;  // FixMe: This is hardcoded
+        CREOEnvironment.verifyCREOEnvironment();
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 

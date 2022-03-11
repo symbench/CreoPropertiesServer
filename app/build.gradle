@@ -33,3 +33,26 @@ application {
     // Define the main class for the application.
     mainClass = 'org.symbench.creointerferenceserver.App'
 }
+
+def CREOWinEnvironment = {
+    "set CREO_COMMON=%CREO_HOME%\\Common Files\r\n" +
+    "set path %path%;%CREO_HOME%\\Common Files\\x86e_win64\\lib\r\n" +
+    "set PRO_COMM_MSG_EXE=%CREO_HOME%\\Common Files\\x86e_win64\\obj\\pro_comm_msg.exe\r\n"
+}
+
+startScripts {
+    doLast {
+        windowsScript.text = windowsScript.text.replace(
+                "if \"%OS%\"==\"Windows_NT\" setlocal",
+                "if \"%OS%\"==\"Windows_NT\" setlocal\r\n" + CREOWinEnvironment()
+        )  // FixMe: I cannot find a better way to set environement
+
+        delete unixScript
+    }
+}
+
+run {
+    environment "CREO_COMMON", System.getenv("CREO_HOME") + "\\Common Files"
+    environment "Path", System.getenv("Path") + ";" +  System.getenv("CREO_HOME") + "\\Common Files\\x86e_win64\\lib"
+    environment "PRO_COMM_MSG_EXE", System.getenv("CREO_HOME") + "\\Common Files\\x86e_win64\\obj\\pro_comm_msg.exe"
+}

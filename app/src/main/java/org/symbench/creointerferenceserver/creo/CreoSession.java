@@ -22,7 +22,8 @@ public class CreoSession {
             connect();
         }
         logger.log(Level.FINEST, "About to acquire a session");
-        return ac.GetSession();
+        Session session = ac.GetSession();
         logger.log(Level.INFO, "Successfully acquired a PROToolkit Session");
+        return session;
     }
 }
