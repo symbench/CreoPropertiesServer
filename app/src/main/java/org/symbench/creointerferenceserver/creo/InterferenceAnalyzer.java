@@ -2,6 +2,8 @@ package org.symbench.creointerferenceserver.creo;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.ptc.cipjava.*;
 
@@ -9,6 +11,7 @@ import com.ptc.pfc.pfcAssembly.*;
 import com.ptc.pfc.pfcInterference.*;
 import com.ptc.pfc.pfcSelect.*;
 import com.ptc.pfc.pfcModel.*;
+import com.ptc.pfc.pfcSession.*;
 
 public class InterferenceAnalyzer {
 
@@ -16,12 +19,15 @@ public class InterferenceAnalyzer {
     public static final String PART_2_NAME = "part_2_name";
     public static final String INTERFERENCE_VOLUME = "interference_volume";
 
+    private static final Logger logger = Logger.getLogger(InterferenceAnalyzer.class.getName());
+
     public ArrayList<Hashtable<String, Object>> getGlobalInterferences(String assemblyPath) throws jxthrowable {
         Assembly assembly = this.loadAssemblyIfNeeded(assemblyPath);
         return this.computeGlobalInterferences(assembly);
     }
 
     public ArrayList<Hashtable<String, Object>> getGlobalInterferences() throws jxthrowable {
+
         Assembly assembly = this.loadAssemblyIfNeeded(null);
         return this.computeGlobalInterferences(assembly);
     }
@@ -44,6 +50,11 @@ public class InterferenceAnalyzer {
                 detail.put(PART_1_NAME, interferingPairs.GetSel1().GetSelModel().GetFullName());
                 detail.put(PART_2_NAME, interferingPairs.GetSel2().GetSelModel().GetFullName());
                 detail.put(INTERFERENCE_VOLUME, interference.GetVolume().ComputeVolume());
+
+                System.out.print(PART_1_NAME + interferingPairs.GetSel1().GetSelModel().GetFullName());
+                System.out.print('\t' + PART_2_NAME + interferingPairs.GetSel2().GetSelModel().GetFullName());
+                System.out.print('\t' + INTERFERENCE_VOLUME + interference.GetVolume().ComputeVolume());
+                System.out.println();
                 interferences.add(detail);
             }
             return interferences;
@@ -51,22 +62,26 @@ public class InterferenceAnalyzer {
     }
 
     private Assembly loadAssemblyIfNeeded(String assemblyPath) throws jxthrowable {
+        Session session = CreoSession.acquire();
         if(assemblyPath != null) {
             ModelType modelType = ModelType.MDL_ASSEMBLY;
-            const session = CreoSession.acquire();
             try {
                 ModelDescriptor modelDescriptor= pfcModel.ModelDescriptor_Create(modelType, assemblyPath, "");
-                Model model = this.session.RetrieveModel(modelDescriptor);
+                Model model = session.RetrieveModel(modelDescriptor);
                 model.Display();
-                System.out.println("Assmebly Loaded: " + assemblyPath);
+                logger.log(Level.INFO, "Assmebly Loaded: " + assemblyPath);
                 return (Assembly) model;
             }
             catch(jxthrowable x) {
-                System.out.println("Cannot load assembly: " + x);
+                logger.log(Level.WARNING, "Cannot load assembly: " + x);
                 throw x;
             }
         } else {
-            return (Assembly) this.session.GetActiveModel();
+            return (Assembly) session.GetActiveModel();
         }
+    }
+
+    public static InterferenceAnalyzer getInstance() {
+        return new InterferenceAnalyzer();
     }
 }

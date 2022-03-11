@@ -4,23 +4,27 @@
 package org.symbench.creointerferenceserver;
 
 import com.sun.net.httpserver.HttpServer;
-import org.symbench.creointerferenceserver.http.HTTPRequestHandler;
+import org.symbench.creointerferenceserver.creo.InterferenceAnalyzer;
+import org.symbench.creointerferenceserver.http.JSONRequestHandler;
 
 import java.net.InetSocketAddress;
+import java.util.logging.Logger;
 
 
 public class App {
-    private static final String ENDPOINT = "/analyze-interference";
+    private static final String ENDPOINT = "/symbench-creoson";
 
     private static final String PORT = "interferenceserver.port";
+
+    private static final Logger logger = Logger.getLogger(App.class.getName());
 
     public static void main(String[] args) throws Exception {
         int port = 8000;
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
-        server.createContext(ENDPOINT, new HTTPRequestHandler());
-        System.out.println("Starting server, listening on port " + port + ".");
+        server.createContext(ENDPOINT, new JSONRequestHandler());
+        logger.info("Starting server, listening on port " + port + ".");
         server.start();
     }
 }

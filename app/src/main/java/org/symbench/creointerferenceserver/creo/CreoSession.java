@@ -14,6 +14,7 @@ public class CreoSession {
         if(ac == null) {
             connect();
         }
+        System.out.println("Acquiring session");
         return ac.GetSession();
     }
 }
