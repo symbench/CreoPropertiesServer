@@ -25,3 +25,47 @@ Clone the repository and start the server.
 ```
 
 Finally, `api` server will be available at http://localhost:8000
+
+
+### Important Notes
+At this point, new CREO can't directly be started from this repository. So, you have to run creo manually.
+
+
+## API example
+To maintain a consistent api with [CREOSON](https://github.com/SimplifiedLogic/creoson). I have burrowed concepts from the creoson repository to add an interference command handler.
+
+Currently, this handler only computes global interferences via the `global_interference` function.
+
+### Request Example
+
+```json
+{
+   "command": "interference", 
+   "function": "global_interference",
+   "data": {
+      "assembly_path": "C:\\MyDocuments\\PathToAnAssembly\\assembly.asm"
+   }
+}
+```
+
+Note: If `assembly_path` is `null`, there current active model in creo is used for calculations.
+
+The response is as follows. It returns interfering parts and the interference volume.
+
+```json
+{
+   "data": {
+      "interferences": [
+         {
+            "part_2_name": "...",
+            "part_1_name": "...",
+            "interference_volume": 2948309
+         }
+      ],
+      "num_interferences": 1
+   },
+   "status": {
+      "error": false
+   }
+}
+```
