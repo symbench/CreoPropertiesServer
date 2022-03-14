@@ -21,10 +21,14 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class.getName());
 
     public static void main(String[] args) throws Exception {
-        int port = 8000;  // FixMe: This is hardcoded
+        String port = System.getProperty(PORT);
+        if (port == null) {
+            port = "8000";
+        }
+
         CREOEnvironment.verifyCREOEnvironment();
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(port)), 0);
 
         server.createContext(ENDPOINT, new JSONRequestHandler());
         logger.info("Starting server, listening on port " + port + ".");

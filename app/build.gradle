@@ -11,6 +11,7 @@ plugins {
     id 'application'
 }
 
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -52,6 +53,7 @@ startScripts {
 }
 
 run {
+    systemProperties["interferenceserver.port"]="8000"
     environment "CREO_COMMON", System.getenv("CREO_HOME") + "\\Common Files"
     environment "Path", System.getenv("Path") + ";" +  System.getenv("CREO_HOME") + "\\Common Files\\x86e_win64\\lib"
     environment "PRO_COMM_MSG_EXE", System.getenv("CREO_HOME") + "\\Common Files\\x86e_win64\\obj\\pro_comm_msg.exe"

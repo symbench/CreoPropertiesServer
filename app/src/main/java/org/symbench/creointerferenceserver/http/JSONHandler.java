@@ -40,7 +40,7 @@ public class JSONHandler {
         try {
             output = handleRequest(req);
         } catch (Exception e) {
-                createError(output, "Request Failed " + e.getMessage());
+                createError(output, "Request Failed. " + e.getMessage());
                 try {
                     return mapper.writeValueAsString(output);
                 } catch (Exception ex) {

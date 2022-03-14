@@ -13,8 +13,6 @@ public class InterferenceHandler extends JSONCommandHandler {
 
     public static final String ASSEMBLY_PATH = "assembly_path";
 
-    public static final String INTERFERENCE_DATA = "interferences";
-
     private static final Logger logger = Logger.getLogger(InterferenceHandler.class.getName());
 
     private InterferenceAnalyzer interferenceAnalyzer;
@@ -25,18 +23,16 @@ public class InterferenceHandler extends JSONCommandHandler {
 
 
     public Hashtable<String, Object> handleFunction(String function, Hashtable<String, Object> input) throws Exception {
-        Hashtable<String, Object> output = new Hashtable<>();
+        Hashtable<String, Object> output;
         logger.info("Function " + function + " called with data "  + input);
         if(function.equals(GLOBAL_INTERFERENCE)) {
-            List<Hashtable<String, Object>> interferenceData = computeGlobalInterference(input);
-            output.put(INTERFERENCE_DATA, interferenceData);
+            return computeGlobalInterference(input);
         } else {
             throw new UnsupportedOperationException("Function " + function + " is not supported");
         }
-        return output;
     }
 
-    private List<Hashtable<String, Object>> computeGlobalInterference(Hashtable<String, Object> input) throws Exception {
+    private Hashtable<String, Object> computeGlobalInterference(Hashtable<String, Object> input) throws Exception {
         if(input == null) {
             return this.interferenceAnalyzer.getGlobalInterferences();
         }

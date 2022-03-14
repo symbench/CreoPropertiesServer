@@ -12,9 +12,14 @@ public class CreoSession {
 
     private static final Logger logger = LoggerFactory.getLogger(CreoSession.class.getName());
 
-    public static void connect() throws jxthrowable {
-        System.loadLibrary ("pfcasyncmt");
-        ac = pfcAsyncConnection.AsyncConnection_Connect (null, null, null, 10);
+    public static void connect() {
+        try {
+            System.loadLibrary ("pfcasyncmt");
+            ac = pfcAsyncConnection.AsyncConnection_Connect (null, null, null, 10);
+        } catch (Exception e) {
+            String message = "Failed to acquire a CREO session";
+            throw new SessionAcquisitionException(message);
+        }
     }
 
     public static Session acquire() throws jxthrowable{
