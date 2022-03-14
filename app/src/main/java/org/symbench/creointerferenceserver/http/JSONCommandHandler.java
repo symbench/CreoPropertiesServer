@@ -1,7 +1,7 @@
 package org.symbench.creointerferenceserver.http;
 
-import java.util.Hashtable;
+import java.util.Map;
 
 public abstract class JSONCommandHandler {
-    public abstract Hashtable<String, Object> handleFunction(String function, Hashtable<String, Object> data) throws Exception;
+    public abstract Map<String, Object> handleFunction(String function, Map<String, Object> data) throws Exception;
 }

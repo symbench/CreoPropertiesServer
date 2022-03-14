@@ -2,8 +2,7 @@ package org.symbench.creointerferenceserver.http;
 
 import org.symbench.creointerferenceserver.creo.InterferenceAnalyzer;
 
-import java.util.Hashtable;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class InterferenceHandler extends JSONCommandHandler {
@@ -22,8 +21,7 @@ public class InterferenceHandler extends JSONCommandHandler {
     }
 
 
-    public Hashtable<String, Object> handleFunction(String function, Hashtable<String, Object> input) throws Exception {
-        Hashtable<String, Object> output;
+    public Map<String, Object> handleFunction(String function, Map<String, Object> input) throws Exception {
         logger.info("Function " + function + " called with data "  + input);
         if(function.equals(GLOBAL_INTERFERENCE)) {
             return computeGlobalInterference(input);
@@ -32,7 +30,7 @@ public class InterferenceHandler extends JSONCommandHandler {
         }
     }
 
-    private Hashtable<String, Object> computeGlobalInterference(Hashtable<String, Object> input) throws Exception {
+    private Map<String, Object> computeGlobalInterference(Map<String, Object> input) throws Exception {
         if(input == null) {
             return this.interferenceAnalyzer.getGlobalInterferences();
         }
