@@ -3,9 +3,35 @@
  */
 package org.symbench.creointerferenceserver;
 
-public class App {
+import com.sun.net.httpserver.HttpServer;
+import org.symbench.creointerferenceserver.creo.CREOEnvironment;
+import org.symbench.creointerferenceserver.http.JSONRequestHandler;
+import org.symbench.creointerferenceserver.utils.LoggerFactory;
 
-    public static void main(String[] args) {
-        // ToDo Add Implementation
+import java.net.InetSocketAddress;
+import java.util.Objects;
+import java.util.logging.Logger;
+
+
+public class App {
+    private static final String ENDPOINT = "/symbench-creoson";
+
+    private static final String PORT = "interferenceserver.port";
+
+    private static final Logger logger = LoggerFactory.getLogger(App.class.getName());
+
+    public static void main(String[] args) throws Exception {
+        String port = System.getProperty(PORT);
+        if (port == null) {
+            port = "8000";
+        }
+
+        CREOEnvironment.verifyCREOEnvironment();
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(port)), 0);
+
+        server.createContext(ENDPOINT, new JSONRequestHandler());
+        logger.info("Starting server, listening on port " + port + ".");
+        server.start();
     }
 }

@@ -4,7 +4,6 @@
  * This generated file contains a sample Java application project to get you started.
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/7.4/userguide/building_java_projects.html
- * This project uses @Incubating APIs which are subject to change.
  */
 
 plugins {
@@ -12,35 +11,50 @@ plugins {
     id 'application'
 }
 
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    flatDir {
+        dirs System.getenv("CREO_HOME") + "\\Common Files\\text\\java"
+    }
 }
 
 dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
-}
-
-testing {
-    suites {
-        // Configure the built-in test suite
-        test {
-            // Use JUnit4 test framework
-            useJUnit('4.13.2')
-        }
-    }
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2'
+    implementation 'com.ptc.pfc:pfcasync'
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'org.symbench.creointerferenceserver.App'
-    mainModule = 'org.symbench.creointerferenceserver'
-    jar {
-        manifest {
-            attributes(
-                    'Main-Class': 'org.symbench.creointerferenceserver.App'
-            )
-        }
+}
+
+def CREOWinEnvironment = {
+    "set CREO_COMMON=%CREO_HOME%\\Common Files\r\n" +
+    "set path %path%;%CREO_HOME%\\Common Files\\x86e_win64\\lib\r\n" +
+    "set PRO_COMM_MSG_EXE=%CREO_HOME%\\Common Files\\x86e_win64\\obj\\pro_comm_msg.exe\r\n"
+}
+
+startScripts {
+    doLast {
+        windowsScript.text = windowsScript.text.replace(
+                "if \"%OS%\"==\"Windows_NT\" setlocal",
+                "if \"%OS%\"==\"Windows_NT\" setlocal\r\n" + CREOWinEnvironment()
+        )  // FixMe: I cannot find a better way to set environement
+
+        delete unixScript
     }
+}
+
+run {
+    systemProperties["interferenceserver.port"]="8000"
+    environment "CREO_COMMON", System.getenv("CREO_HOME") + "\\Common Files"
+    environment "Path", System.getenv("Path") + ";" +  System.getenv("CREO_HOME") + "\\Common Files\\x86e_win64\\lib"
+    environment "PRO_COMM_MSG_EXE", System.getenv("CREO_HOME") + "\\Common Files\\x86e_win64\\obj\\pro_comm_msg.exe"
 }
