@@ -3,7 +3,8 @@ package org.symbench.creointerferenceserver.creo;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,21 +28,21 @@ public class InterferenceAnalyzer {
 
     private static final Logger logger = LoggerFactory.getLogger(InterferenceAnalyzer.class.getName());
 
-    public Hashtable<String, Object> getGlobalInterferences(String assemblyPath) throws jxthrowable {
+    public Map<String, Object> getGlobalInterferences(String assemblyPath) throws jxthrowable {
         Assembly assembly = this.loadAssemblyIfNeeded(assemblyPath);
         return computeGlobalInterferences(assembly);
     }
 
-    public Hashtable<String, Object> getGlobalInterferences() throws jxthrowable {
+    public Map<String, Object> getGlobalInterferences() throws jxthrowable {
         Assembly assembly = this.loadAssemblyIfNeeded(null);
         return computeGlobalInterferences(assembly);
     }
 
-    private static Hashtable<String, Object> computeGlobalInterferences(Assembly assembly) throws jxthrowable {
+    private static Map<String, Object> computeGlobalInterferences(Assembly assembly) throws jxthrowable {
         GlobalEvaluator globalEvaluator = pfcInterference.CreateGlobalEvaluator(assembly);
         GlobalInterferences globalInterferences = globalEvaluator.ComputeGlobalInterference(true);
-        Hashtable<String, Object> output = new Hashtable<>();
-        ArrayList<Hashtable<String, Object>> interferences = new ArrayList<>();
+        Map<String, Object> output = new HashMap<>();
+        ArrayList<HashMap<String, Object>> interferences = new ArrayList<>();
 
 
         if (globalInterferences == null) {
@@ -53,7 +54,7 @@ public class InterferenceAnalyzer {
             for(int j = 0; j < size; j++) {
                 GlobalInterference interference = globalInterferences.get(j);
                 SelectionPair interferingPairs = interference.GetSelParts();
-                Hashtable<String, Object> detail = new Hashtable<>();
+                HashMap<String, Object> detail = new HashMap<>();
                 detail.put(PART_1_NAME, interferingPairs.GetSel1().GetSelModel().GetFullName());
                 detail.put(PART_2_NAME, interferingPairs.GetSel2().GetSelModel().GetFullName());
                 detail.put(INTERFERENCE_VOLUME, interference.GetVolume().ComputeVolume());

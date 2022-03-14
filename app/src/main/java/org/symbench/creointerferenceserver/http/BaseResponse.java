@@ -1,6 +1,8 @@
 package org.symbench.creointerferenceserver.http;
 
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseResponse {
     @JsonInclude(Include.NON_NULL)
-    private Hashtable<String, Object> data;
+    private Map<String, Object> data;
 
     @JsonInclude(Include.NON_NULL)
     private ResponseStatus status;
@@ -22,11 +24,11 @@ public class BaseResponse {
         this.status = status;
     }
 
-    public Hashtable<String, Object> getData() {
+    public Map<String, Object> getData() {
         return data;
     }
 
-    public void setData(Hashtable<String, Object> data) {
+    public void setData(Map<String, Object> data) {
         this.data = data;
     }
 }

@@ -5,7 +5,6 @@ import org.symbench.creointerferenceserver.creo.InterferenceAnalyzer;
 import org.symbench.creointerferenceserver.utils.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +12,7 @@ import java.util.logging.Logger;
 public class JSONHandler {
     ObjectMapper mapper = new ObjectMapper();
 
-    private Map<String, JSONCommandHandler> commands = new HashMap();
+    private Map<String, JSONCommandHandler> commands = new HashMap<String, JSONCommandHandler>();
 
     private static final Logger logger = LoggerFactory.getLogger(JSONHandler.class.getName());
 
@@ -28,7 +27,7 @@ public class JSONHandler {
         try {
             req = mapper.readValue(request, BaseRequest.class);
         } catch (Exception e) {
-            createError(output, "Invalid JSON input" + request);
+            createError(output, "Invalid JSON input " + request);
             try {
                 return mapper.writeValueAsString(output);
             } catch (Exception ex) {
@@ -90,7 +89,7 @@ public class JSONHandler {
         }
         logger.info("Got Command " + request.getCommand() + ". Will be handled by " + handler.getClass().getName());
 
-        Hashtable<String, Object> data = handler.handleFunction(request.getFunction(), request.getData());
+        Map<String, Object> data = handler.handleFunction(request.getFunction(), request.getData());
 
         resp.setData(data);
 
