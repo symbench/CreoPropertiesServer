@@ -1,6 +1,6 @@
-package org.symbench.creointerferenceserver.http;
+package org.symbench.creopropertiesserver.http;
 
-import org.symbench.creointerferenceserver.creo.InterferenceAnalyzer;
+import org.symbench.creopropertiesserver.creo.InterferenceAnalyzer;
 
 import java.util.Map;
 import java.util.logging.Logger;

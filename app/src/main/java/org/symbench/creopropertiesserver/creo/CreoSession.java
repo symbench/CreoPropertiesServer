@@ -1,8 +1,8 @@
-package org.symbench.creointerferenceserver.creo;
+package org.symbench.creopropertiesserver.creo;
 import com.ptc.pfc.pfcSession.*;
 import com.ptc.pfc.pfcAsyncConnection.*;
 import com.ptc.cipjava.*;
-import org.symbench.creointerferenceserver.utils.LoggerFactory;
+import org.symbench.creopropertiesserver.utils.LoggerFactory;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

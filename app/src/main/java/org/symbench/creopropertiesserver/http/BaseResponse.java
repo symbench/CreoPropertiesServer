@@ -1,7 +1,5 @@
-package org.symbench.creointerferenceserver.http;
+package org.symbench.creopropertiesserver.http;
 
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

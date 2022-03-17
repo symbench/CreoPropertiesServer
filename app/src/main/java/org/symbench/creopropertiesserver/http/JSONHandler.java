@@ -1,8 +1,9 @@
-package org.symbench.creointerferenceserver.http;
+package org.symbench.creopropertiesserver.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.symbench.creointerferenceserver.creo.InterferenceAnalyzer;
-import org.symbench.creointerferenceserver.utils.LoggerFactory;
+import org.symbench.creopropertiesserver.creo.InterferenceAnalyzer;
+import org.symbench.creopropertiesserver.creo.MassPropertiesAnalyzer;
+import org.symbench.creopropertiesserver.utils.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,7 @@ public class JSONHandler {
 
     public JSONHandler() {
         commands.put(InterferenceHandler.COMMAND, new InterferenceHandler(InterferenceAnalyzer.getInstance()));
+        commands.put(MassPropertiesHandler.COMMAND, new MassPropertiesHandler(MassPropertiesAnalyzer.getInstance()));
     }
 
     public String handleRequest(String request) {

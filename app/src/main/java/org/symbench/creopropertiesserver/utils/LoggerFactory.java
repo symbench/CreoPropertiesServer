@@ -1,4 +1,4 @@
-package org.symbench.creointerferenceserver.utils;
+package org.symbench.creopropertiesserver.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
