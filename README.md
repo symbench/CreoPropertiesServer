@@ -44,7 +44,7 @@ Currently, the `InterferenceHandler` only computes global interferences via the 
 
 The `MassPropertiesHandler` computes `massproperties` in a similar fashion as `creoson` but also returns an additional `center_of_mass`.
 
-Note: If `assembly_path` is `null`, current active model in creo is used for calculations.
+Note: If `model_path` is `null`, current active model in creo is used for calculations.
 
 ### Request Example: `InterferenceHandler`
 
@@ -53,7 +53,7 @@ Note: If `assembly_path` is `null`, current active model in creo is used for cal
    "command": "interference", 
    "function": "global_interference",
    "data": {
-      "assembly_path": "C:\\MyDocuments\\PathToAnAssembly\\assembly.asm"
+      "model_path": "C:\\MyDocuments\\PathToAnAssembly\\assembly.asm"
    }
 }
 ```
@@ -84,7 +84,7 @@ The response is as follows. It returns interfering parts and the interference vo
   "command": "file",
   "function": "massproperties",
   "data": {
-      "assembly_path": null
+      "model_path": null
   }
 }
 ```

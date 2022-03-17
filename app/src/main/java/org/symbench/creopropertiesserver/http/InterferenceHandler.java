@@ -10,7 +10,7 @@ public class InterferenceHandler extends JSONCommandHandler {
 
     public static final String GLOBAL_INTERFERENCE = "global_interference";
 
-    public static final String ASSEMBLY_PATH = "assembly_path";
+    public static final String MODEL_PATH = "model_path";
 
     private static final Logger logger = Logger.getLogger(InterferenceHandler.class.getName());
 
@@ -34,7 +34,7 @@ public class InterferenceHandler extends JSONCommandHandler {
         if(input == null) {
             return this.interferenceAnalyzer.getGlobalInterferences();
         }
-        String  assemblyPath = (String) input.get(ASSEMBLY_PATH);
+        String  assemblyPath = (String) input.get(MODEL_PATH);
         if (assemblyPath == null) {
             return this.interferenceAnalyzer.getGlobalInterferences();
         } else {

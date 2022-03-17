@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import com.ptc.cipjava.*;
 
-import com.ptc.pfc.pfcAssembly.*;
 import com.ptc.pfc.pfcSolid.*;
 import com.ptc.pfc.pfcBase.Point3D;
 
@@ -45,20 +44,19 @@ public class MassPropertiesAnalyzer extends BaseAnalyzer{
     private static final String Z = "z";
 
 
-    public Map<String, Object> getFileMassProperties(String assemblyPath) throws jxthrowable {
-        Assembly assembly = this.loadAssemblyIfNeeded(assemblyPath);
-        return computeFileMassProperties(assembly);
+    public Map<String, Object> getFileMassProperties(String modelPath) throws jxthrowable {
+        Solid solid = (Solid) this.getModel(modelPath);
+        return computeFileMassProperties(solid);
     }
 
     public Map<String, Object> getFileMassProperties() throws jxthrowable {
-        Assembly assembly = this.loadAssemblyIfNeeded(null);
-        return computeFileMassProperties(assembly);
+        Solid solid = (Solid) this.getModel(null);
+        return computeFileMassProperties(solid);
     }
 
-    private static Map<String, Object> computeFileMassProperties(Assembly assembly) throws jxthrowable {
-        Solid solid = (Solid) assembly;
+    private static Map<String, Object> computeFileMassProperties(Solid solid) throws jxthrowable {
         MassProperty property = solid.GetMassProperty(null);
-
+        logger.info("Computing mass properties for " + solid.GetFullName());
         return getMassPropertiesData(property);
     }
 
