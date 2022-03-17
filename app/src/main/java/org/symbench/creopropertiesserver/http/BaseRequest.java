@@ -1,4 +1,4 @@
-package org.symbench.creointerferenceserver.http;
+package org.symbench.creopropertiesserver.http;
 
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
-package org.symbench.creointerferenceserver.creo;
+package org.symbench.creopropertiesserver.creo;
 
-import org.symbench.creointerferenceserver.utils.LoggerFactory;
+import org.symbench.creopropertiesserver.utils.LoggerFactory;
 
 import java.util.Objects;
 import java.util.logging.Logger;

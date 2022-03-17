@@ -1,4 +1,4 @@
-package org.symbench.creointerferenceserver.creo;
+package org.symbench.creopropertiesserver.creo;
 
 public class SessionAcquisitionException extends RuntimeException {
 

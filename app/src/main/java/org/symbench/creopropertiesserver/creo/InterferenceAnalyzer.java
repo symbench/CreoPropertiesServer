@@ -1,7 +1,5 @@
-package org.symbench.creointerferenceserver.creo;
+package org.symbench.creopropertiesserver.creo;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,12 +11,10 @@ import com.ptc.cipjava.*;
 import com.ptc.pfc.pfcAssembly.*;
 import com.ptc.pfc.pfcInterference.*;
 import com.ptc.pfc.pfcSelect.*;
-import com.ptc.pfc.pfcModel.*;
-import com.ptc.pfc.pfcSession.*;
 
-import org.symbench.creointerferenceserver.utils.LoggerFactory;
+import org.symbench.creopropertiesserver.utils.LoggerFactory;
 
-public class InterferenceAnalyzer {
+public class InterferenceAnalyzer extends BaseAnalyzer{
 
     public static final String PART_1_NAME = "part_1_name";
     public static final String PART_2_NAME = "part_2_name";
@@ -64,33 +60,6 @@ public class InterferenceAnalyzer {
         }
         output.put(INTERFERENCES, interferences);
         return output;
-    }
-
-    private Assembly loadAssemblyIfNeeded(String assemblyPath) throws jxthrowable {
-        Session session = CreoSession.acquire();
-        if(assemblyPath != null) {
-            try {
-                Path ap = Paths.get(assemblyPath);
-                String fileName = ap.getFileName().toString();
-                String directory = ap.getParent().toString();
-                session.ChangeDirectory(directory);
-
-                logger.info("Changed the working directory to " + directory);
-
-                ModelDescriptor modelDescriptor= pfcModel.ModelDescriptor_CreateFromFileName(fileName);
-                Model model = session.RetrieveModel(modelDescriptor);
-                model.Display(); //ToDo: What to do with this when no GUI?
-
-                logger.log(Level.INFO, "Assmebly Loaded: " + assemblyPath);
-                return (Assembly) model;
-            }
-            catch(jxthrowable x) {
-                logger.log(Level.SEVERE, "Cannot load assembly at " + assemblyPath);
-                throw x;
-            }
-        } else {
-            return (Assembly) session.GetActiveModel();
-        }
     }
 
     public static InterferenceAnalyzer getInstance() {

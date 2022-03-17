@@ -1,4 +1,4 @@
-package org.symbench.creointerferenceserver.http;
+package org.symbench.creopropertiesserver.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.symbench.creointerferenceserver.utils.LoggerFactory;
+import org.symbench.creopropertiesserver.utils.LoggerFactory;
 
 
 public class JSONRequestHandler implements HttpHandler {

@@ -1,7 +1,13 @@
-# CreoInterferenceServer
+# CreoPropertiesServer
 
-Basic Interference analysis with PTC Creo's JLink api exposed as a server.
+Basic properties analysis with PTC Creo's JLink api exposed as a server.
 
+While using [`creoson`](https://github.com/SimplifiedLogic/creoson), I realized two short-comings in the project:
+
+1. The `file` command's `massprops` function doesn't return the center of mass. [**SimplifiedLogic/creoson#69**](https://github.com/SimplifiedLogic/creoson/issues/69)
+2. Interference analysis is not possible. [**SimplifiedLogic/creoson#76**](https://github.com/SimplifiedLogic/creoson/issues/76)
+
+So, I wrote this utility package following concepts from [`creoson`](https://github.com/SimplifiedLogic/creoson) to complement it such that aforementioned calculations are possible.
 This is a utility package, meant to be used with [symbench-athens-client](https://github.com/symbench/symbench-athens-client).
 
 ## Usage
