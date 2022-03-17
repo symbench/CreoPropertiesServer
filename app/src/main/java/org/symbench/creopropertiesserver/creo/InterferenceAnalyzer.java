@@ -25,12 +25,12 @@ public class InterferenceAnalyzer extends BaseAnalyzer{
     private static final Logger logger = LoggerFactory.getLogger(InterferenceAnalyzer.class.getName());
 
     public Map<String, Object> getGlobalInterferences(String assemblyPath) throws jxthrowable {
-        Assembly assembly = this.loadAssemblyIfNeeded(assemblyPath);
+        Assembly assembly = (Assembly) this.getModel(assemblyPath);
         return computeGlobalInterferences(assembly);
     }
 
     public Map<String, Object> getGlobalInterferences() throws jxthrowable {
-        Assembly assembly = this.loadAssemblyIfNeeded(null);
+        Assembly assembly = (Assembly) this.getModel(null);
         return computeGlobalInterferences(assembly);
     }
 

@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import com.ptc.cipjava.*;
 
-import com.ptc.pfc.pfcAssembly.*;
 import com.ptc.pfc.pfcModel.*;
 import com.ptc.pfc.pfcSession.*;
 
@@ -16,12 +15,12 @@ import org.symbench.creopropertiesserver.utils.LoggerFactory;
 public class BaseAnalyzer {
     private static final Logger logger = LoggerFactory.getLogger(BaseAnalyzer.class.getName());
 
-    protected Assembly loadAssemblyIfNeeded(String assemblyPath) throws jxthrowable {
+    protected Model getModel(String modelPath) throws jxthrowable {
         Session session = CreoSession.acquire();
-        if(assemblyPath != null) {
+        if(modelPath != null) {
             try {
-                System.out.println(assemblyPath);
-                Path ap = Paths.get(assemblyPath);
+                System.out.println(modelPath);
+                Path ap = Paths.get(modelPath);
                 String fileName = ap.getFileName().toString();
                 String directory = ap.getParent().toString();
                 session.ChangeDirectory(directory);
@@ -32,15 +31,15 @@ public class BaseAnalyzer {
                 Model model = session.RetrieveModel(modelDescriptor);
                 model.Display(); //ToDo: What to do with this when no GUI?
 
-                logger.log(Level.INFO, "Assembly Loaded: " + assemblyPath);
-                return (Assembly) model;
+                logger.log(Level.INFO, "Model Loaded: " + modelPath);
+                return model;
             }
             catch(jxthrowable x) {
-                logger.log(Level.SEVERE, "Cannot load assembly at " + assemblyPath);
+                logger.log(Level.SEVERE, "Cannot load assembly at " + modelPath);
                 throw x;
             }
         } else {
-            return (Assembly) session.GetActiveModel();
+            return (Model) session.GetActiveModel();
         }
     }
 }
